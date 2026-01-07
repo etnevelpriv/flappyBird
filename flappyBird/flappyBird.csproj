@@ -8,4 +8,27 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Images\cica.png" />
+    <None Remove="Images\eger.png" />
+    <None Remove="Images\esos.png" />
+    <None Remove="Images\forditottCica.png" />
+    <None Remove="Images\kodos.png" />
+    <None Remove="Images\koKod.png" />
+    <None Remove="Images\napos.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\esos.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\cica.png" />
+    <Resource Include="Images\eger.png" />
+    <Resource Include="Images\forditottCica.png" />
+    <Resource Include="Images\kodos.png" />
+    <Resource Include="Images\koKod.png" />
+    <Resource Include="Images\napos.png" />
+  </ItemGroup>
+
 </Project>

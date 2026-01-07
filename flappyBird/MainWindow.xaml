@@ -6,7 +6,22 @@
         xmlns:local="clr-namespace:flappyBird"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Canvas>
+        <Canvas.Background>
+            <ImageBrush ImageSource="pack://application:,,,/Images/napos.png"/>
+        </Canvas.Background>
 
-    </Grid>
+        <Rectangle Height="75px" Width="100px" VerticalAlignment="Center">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="Images/eger.png"/>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Height="300px" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100px" Canvas.Right="-100" Canvas.Bottom="0">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="Images/cica.png"/>
+            </Rectangle.Fill>
+        </Rectangle>
+
+    </Canvas>
 </Window>

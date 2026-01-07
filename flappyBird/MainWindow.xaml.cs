@@ -16,6 +16,10 @@ namespace flappyBird
     /// </summary>
     public partial class MainWindow : Window
     {
+        int gravitacio = 1;
+
+        Random random = new Random();
+
         public MainWindow()
         {
             InitializeComponent();
