@@ -23,6 +23,18 @@ namespace flappyBird
         public MainWindow()
         {
             InitializeComponent();
+            double canvasMagassag = gameCanvas.ActualHeight;
+            double canvasSzelesseg = gameCanvas.ActualWidth;
+
+        }
+        private void newGameButton_Click(object sender, RoutedEventArgs e)
+        {
+            menuGrid.Visibility = Visibility.Collapsed;
+            gameCanvas.Visibility = Visibility.Visible;
+        }
+        private void achievementShowButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

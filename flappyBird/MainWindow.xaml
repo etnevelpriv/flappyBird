@@ -6,22 +6,32 @@
         xmlns:local="clr-namespace:flappyBird"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Canvas>
-        <Canvas.Background>
-            <ImageBrush ImageSource="pack://application:,,,/Images/napos.png"/>
-        </Canvas.Background>
 
-        <Rectangle Height="75px" Width="100px" VerticalAlignment="Center">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="Images/eger.png"/>
-            </Rectangle.Fill>
-        </Rectangle>
 
-        <Rectangle Height="300px" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100px" Canvas.Right="-100" Canvas.Bottom="0">
-            <Rectangle.Fill>
-                <ImageBrush ImageSource="Images/cica.png"/>
-            </Rectangle.Fill>
-        </Rectangle>
+    <Grid>
+        <Canvas x:Name="gameCanvas" Visibility="Collapsed">
+            <Canvas.Background>
+                <ImageBrush x:Name="backgroundImage" ImageSource="pack://application:,,,/Images/napos.png"/>
+            </Canvas.Background>
 
-    </Canvas>
+            <Rectangle Height="75px" Width="100px" Canvas.Left="50">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="Images/eger.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+
+            <Rectangle Height="300px" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100px" Canvas.Right="-100" Canvas.Bottom="0">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="Images/cica.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+
+        </Canvas>
+
+        <Grid Background="#000000" x:Name="menuGrid">
+            <TextBlock TextWrapping="Wrap" FontSize="40" VerticalAlignment="Top" Margin="0 80 0 0" HorizontalAlignment="Center" Foreground="#ff00ff" FontFamily="Cascadia Mono" FontWeight="Bold" Text="Floppy Mouse"/>
+            <Button x:Name="newGameButton" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 180 0 0" Width="200" Height="60" BorderThickness="2" BorderBrush="#00ffff" Foreground="#ff00ff" FontSize="20" FontFamily="Cascadia Mono" FontWeight="Bold" Background="Black" Content="Új játék" Click="newGameButton_Click"/>
+            <Button x:Name="achievementShowButton" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 300 0 0" Width="200" Height="60" BorderThickness="2" BorderBrush="#00ffff" Foreground="#ff00ff" FontSize="20" FontFamily="Cascadia Mono" FontWeight="Bold" Background="Black" Content="Eredmények" Click="achievementShowButton_Click"/>
+        </Grid>
+    </Grid>
 </Window>
