@@ -19,6 +19,8 @@ namespace flappyBird
     {
         int gravitacio = 1;
         string aktivNehezseg = "";
+        double canvasMagassag = 0;
+        double canvasSzelesseg = 0;
 
         Random random = new Random();
 
@@ -36,41 +38,52 @@ namespace flappyBird
 
         }
 
-        private void palyaButtonNapos_Click(object sender, RoutedEventArgs e)
+        private async void palyaButtonNapos_Click(object sender, RoutedEventArgs e)
         {
-            aktivNehezseg = "napos";
-            backgroundImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/napos.png"));
-            palyaValasztoGrid.Visibility = Visibility.Collapsed;
-            gameCanvas.Visibility = Visibility.Visible;
-            renderGameCanvas();
+            await renderGame("napos", "pack://application:,,,/Images/napos.png");
+            gameCanvasSizeModifier();
         }
 
-        private void palyaButtonEsos_Click(object sender, RoutedEventArgs e)
+        private async void palyaButtonEsos_Click(object sender, RoutedEventArgs e)
         {
-            aktivNehezseg = "esos";
-            backgroundImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/esos.png"));
-            palyaValasztoGrid.Visibility = Visibility.Collapsed;
-            gameCanvas.Visibility = Visibility.Visible;
-            renderGameCanvas();
+            await renderGame("esos", "pack://application:,,,/Images/esos.png");
+            gameCanvasSizeModifier();
         }
 
-        private void palyaButtonKodos_Click(object sender, RoutedEventArgs e)
+        private async void palyaButtonKodos_Click(object sender, RoutedEventArgs e)
         {
-            aktivNehezseg = "kodos";
-            backgroundImage.ImageSource = new BitmapImage(new Uri("pack://application:,,,/Images/kodos.png"));
-            palyaValasztoGrid.Visibility = Visibility.Collapsed;
-            gameCanvas.Visibility = Visibility.Visible;
-            renderGameCanvas();
+            kod.Visibility = Visibility.Visible;
+            await renderGame("kodos", "pack://application:,,,/Images/kodos.png");
+            gameCanvasSizeModifier();
         }
 
-        private async void renderGameCanvas()
+        private async Task renderGame(string nehezseg, string imageSource)
         {
-            await Task.Delay(10);
-            double canvasMagassag = gameCanvas.ActualHeight;
-            double canvasSzelesseg = gameCanvas.ActualWidth;
+            backgroundImage.ImageSource = new BitmapImage(new Uri(imageSource));
+            aktivNehezseg = nehezseg;
+
+            palyaValasztoGrid.Visibility = Visibility.Collapsed;
+            gameCanvas.Visibility = Visibility.Visible;
+        }
+
+        private void gameCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            gameCanvasSizeModifier();
+        }
+
+        private void gameCanvasSizeModifier()
+        {
+            canvasMagassag = gameCanvas.ActualHeight;
+            canvasSzelesseg = gameCanvas.ActualWidth;
             egerText.Text = canvasMagassag.ToString();
-            double egerTop = canvasMagassag / 2;
+            double egerTop = canvasMagassag / 2 - 75;
             Canvas.SetTop(eger, egerTop);
+
+            if (kod.Visibility == Visibility.Visible)
+            {
+                kod.Width = canvasSzelesseg * 1.5;
+                kod.Height = canvasMagassag;
+            }
         }
     }
 }

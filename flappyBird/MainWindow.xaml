@@ -9,7 +9,7 @@
 
 
     <Grid>
-        <Canvas x:Name="gameCanvas" Visibility="Collapsed">
+        <Canvas SizeChanged="gameCanvas_SizeChanged" x:Name="gameCanvas" Visibility="Collapsed">
             <Canvas.Background>
                 <ImageBrush x:Name="backgroundImage"/>
             </Canvas.Background>
@@ -19,15 +19,21 @@
                     <ImageBrush ImageSource="Images/eger.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            
-            
+
+            <Rectangle x:Name="kod" Height="450" Width="800" Visibility="Collapsed" Canvas.Right="-5">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/Images/koKod.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
+
+
 
             <Rectangle Height="300px" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100px" Canvas.Right="-100" Canvas.Bottom="0">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="Images/cica.png"/>
                 </Rectangle.Fill>
             </Rectangle>
-            <TextBlock x:Name="egerText" TextWrapping="Wrap" Text="Anyad"/>
+            <TextBlock x:Name="egerText" TextWrapping="Wrap" Text="1"/>
 
         </Canvas>
 
