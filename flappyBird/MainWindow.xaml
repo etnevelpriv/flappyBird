@@ -9,7 +9,7 @@
 
 
     <Grid>
-        <Canvas SizeChanged="gameCanvas_SizeChanged" x:Name="gameCanvas" Visibility="Collapsed">
+        <Canvas KeyUp="gameCanvas_KeyUp"  SizeChanged="gameCanvas_SizeChanged" x:Name="gameCanvas" Visibility="Collapsed">
             <Canvas.Background>
                 <ImageBrush x:Name="backgroundImage"/>
             </Canvas.Background>

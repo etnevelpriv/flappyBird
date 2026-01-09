@@ -17,10 +17,10 @@ namespace flappyBird
     /// </summary>
     public partial class MainWindow : Window
     {
-        int gravitacio = 1;
-        string aktivNehezseg = "";
-        double canvasMagassag = 0;
-        double canvasSzelesseg = 0;
+        double egerXpozicioja;
+        string aktivNehezseg;
+        double canvasMagassag;
+        double canvasSzelesseg;
 
         Random random = new Random();
 
@@ -75,14 +75,34 @@ namespace flappyBird
         {
             canvasMagassag = gameCanvas.ActualHeight;
             canvasSzelesseg = gameCanvas.ActualWidth;
-            egerText.Text = canvasMagassag.ToString();
-            double egerTop = canvasMagassag / 2 - 75;
+
+            double egerLeft = canvasSzelesseg /10;
+            double egerWidth = canvasSzelesseg / 10;
+            double egerHight = egerWidth;
+            double egerTop = canvasMagassag / 2 - egerHight / 2;
+
+            eger.Width = egerWidth;
+            eger.Height = egerHight;
+            Canvas.SetLeft(eger, egerLeft);
             Canvas.SetTop(eger, egerTop);
+
+            egerText.Text = ((canvasMagassag - eger.Height) / 2).ToString();
 
             if (kod.Visibility == Visibility.Visible)
             {
                 kod.Width = canvasSzelesseg * 1.5;
                 kod.Height = canvasMagassag;
+            }
+        }
+        //Nem mukodik
+        private void gameCanvas_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space)
+            {
+                egerText.Text = "Gombos gombos lenyomva mostan";
+
+                canvasMagassag = gameCanvas.ActualHeight;
+                eger.Margin = new Thickness(0, 0, 0, canvasMagassag / 10);
             }
         }
     }
