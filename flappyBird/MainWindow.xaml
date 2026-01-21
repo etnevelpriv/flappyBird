@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:flappyBird"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800"
+        PreviewKeyDown="Window_PreviewKeyDown">
 
 
     <Grid>
-        <Canvas KeyUp="gameCanvas_KeyUp"  SizeChanged="gameCanvas_SizeChanged" x:Name="gameCanvas" Visibility="Collapsed">
+        <Canvas Focusable="True" SizeChanged="gameCanvas_SizeChanged" x:Name="gameCanvas" Visibility="Collapsed">
             <Canvas.Background>
                 <ImageBrush x:Name="backgroundImage"/>
             </Canvas.Background>

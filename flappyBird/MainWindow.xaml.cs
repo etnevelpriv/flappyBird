@@ -9,6 +9,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace flappyBird
 {
@@ -17,16 +18,23 @@ namespace flappyBird
     /// </summary>
     public partial class MainWindow : Window
     {
-        double egerXpozicioja;
+        double egerYpozicioja;
         string aktivNehezseg;
         double canvasMagassag;
         double canvasSzelesseg;
+        double gravitacio;
+        
+        DispatcherTimer jatekTimer;
+        double sebesseg;
+        double felhuzoEro;
 
         Random random = new Random();
 
         public MainWindow()
         {
             InitializeComponent();
+            jatekTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) }; // ~60 FPS
+            jatekTimer.Tick += JatekTimer_Tick;
         }
         private void newGameButton_Click(object sender, RoutedEventArgs e)
         {
@@ -47,6 +55,7 @@ namespace flappyBird
         private async void palyaButtonEsos_Click(object sender, RoutedEventArgs e)
         {
             await renderGame("esos", "pack://application:,,,/Images/esos.png");
+            gravitacio = 1.5;
             gameCanvasSizeModifier();
         }
 
@@ -64,6 +73,30 @@ namespace flappyBird
 
             palyaValasztoGrid.Visibility = Visibility.Collapsed;
             gameCanvas.Visibility = Visibility.Visible;
+
+            gameCanvas.Focus();
+            jatekTimer.Start();
+
+        }
+
+        private void JatekTimer_Tick(object? sender, EventArgs e)
+        {
+            sebesseg += gravitacio;
+            egerYpozicioja += sebesseg;
+
+            double maxTop = (canvasMagassag - eger.Height);
+            if (egerYpozicioja < 0)
+            {
+                egerYpozicioja = 0;
+                sebesseg = 0;
+            }
+            else if (egerYpozicioja > maxTop)
+            {
+                egerYpozicioja = maxTop;
+                sebesseg = 0;
+            }
+
+            Canvas.SetTop(eger, egerYpozicioja);
         }
 
         private void gameCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -78,13 +111,19 @@ namespace flappyBird
 
             double egerLeft = canvasSzelesseg /10;
             double egerWidth = canvasSzelesseg / 10;
-            double egerHight = egerWidth;
-            double egerTop = canvasMagassag / 2 - egerHight / 2;
-
+            double egerHeight = egerWidth;
+            double egerTop = Canvas.GetTop(eger);
+            if (double.IsNaN(egerTop))
+            {
+                egerTop = (canvasMagassag - egerHeight) / 2;
+            }
             eger.Width = egerWidth;
-            eger.Height = egerHight;
+            eger.Height = egerHeight;
             Canvas.SetLeft(eger, egerLeft);
-            Canvas.SetTop(eger, egerTop);
+            Canvas.SetTop(eger, egerTop + (egerTop - egerYpozicioja));
+
+            gravitacio = 0.5 * canvasMagassag / 200;
+            felhuzoEro = 10 * canvasMagassag / 200;
 
             egerText.Text = ((canvasMagassag - eger.Height) / 2).ToString();
 
@@ -94,15 +133,13 @@ namespace flappyBird
                 kod.Height = canvasMagassag;
             }
         }
-        //Nem mukodik
-        private void gameCanvas_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Space)
-            {
-                egerText.Text = "Gombos gombos lenyomva mostan";
 
-                canvasMagassag = gameCanvas.ActualHeight;
-                eger.Margin = new Thickness(0, 0, 0, canvasMagassag / 10);
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (gameCanvas.Visibility == Visibility.Visible && e.Key == Key.Space)
+            {
+                sebesseg = -10;
+                e.Handled = true;
             }
         }
     }
