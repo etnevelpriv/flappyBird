@@ -34,6 +34,12 @@
                     <ImageBrush ImageSource="Images/cica.png"/>
                 </Rectangle.Fill>
             </Rectangle>
+
+            <Rectangle Height="300px" VerticalAlignment="Center" HorizontalAlignment="Left" Width="100px" Canvas.Right="-100" Canvas.Top="0">
+                <Rectangle.Fill>
+                    <ImageBrush ImageSource="/Images/forditottCica.png"/>
+                </Rectangle.Fill>
+            </Rectangle>
             <TextBlock x:Name="egerText" TextWrapping="Wrap" Text="1"/>
 
         </Canvas>

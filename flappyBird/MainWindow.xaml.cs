@@ -23,18 +23,25 @@ namespace flappyBird
         double canvasMagassag;
         double canvasSzelesseg;
         double gravitacio;
-        
+        double egerHeight;
+        double macskaSzelesseg;
+
+        List<Rectangle> macskak = new List<Rectangle>();
+
         DispatcherTimer jatekTimer;
+        DispatcherTimer cicaTimer;
         double sebesseg;
-        double felhuzoEro;
 
         Random random = new Random();
 
         public MainWindow()
         {
             InitializeComponent();
-            jatekTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) }; // ~60 FPS
+            jatekTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };
             jatekTimer.Tick += JatekTimer_Tick;
+
+            cicaTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+            cicaTimer.Tick += CicaTimer_Tick;
         }
         private void newGameButton_Click(object sender, RoutedEventArgs e)
         {
@@ -76,6 +83,7 @@ namespace flappyBird
 
             gameCanvas.Focus();
             jatekTimer.Start();
+            cicaTimer.Start();
 
         }
 
@@ -97,6 +105,59 @@ namespace flappyBird
             }
 
             Canvas.SetTop(eger, egerYpozicioja);
+            foreach (Rectangle macska in macskak)
+            {
+                double macskaPozicio = Canvas.GetRight(macska);
+                Canvas.SetRight(macska, (macskaPozicio + 10));
+            }
+        }
+
+        private void CicaTimer_Tick(object? sender, EventArgs e)
+        {
+            double lyukMagassag = egerHeight * 3;
+            double felsoMacskaMagassag = random.Next((int)(canvasMagassag - lyukMagassag));
+            double alsoMacskaMagassag = felsoMacskaMagassag + lyukMagassag;
+
+            Rectangle felsoMacska = new Rectangle();
+            felsoMacska.Height = felsoMacskaMagassag;
+            felsoMacska.Width = macskaSzelesseg;
+            felsoMacska.VerticalAlignment = VerticalAlignment.Center;
+            felsoMacska.HorizontalAlignment = HorizontalAlignment.Left;
+            Canvas.SetTop(felsoMacska, 0);
+            Canvas.SetRight(felsoMacska, 100);
+            // Ezt AI-al irattam, nem jottem ra magamtol, dokumentaciot sem talaltam
+            var bitmap = new BitmapImage();
+            bitmap.BeginInit();
+            bitmap.UriSource = new Uri("pack://application:,,,/Images/forditottCica.png");
+            bitmap.CacheOption = BitmapCacheOption.OnLoad;
+            bitmap.EndInit();
+            felsoMacska.Fill = new ImageBrush
+            {
+                ImageSource = bitmap
+            };
+
+            Rectangle alsoMacska = new Rectangle();
+            alsoMacska.Height = alsoMacskaMagassag;
+            alsoMacska.Width = macskaSzelesseg;
+            alsoMacska.VerticalAlignment = VerticalAlignment.Center;
+            alsoMacska.HorizontalAlignment = HorizontalAlignment.Left;
+            Canvas.SetTop(alsoMacska, 0);
+            Canvas.SetRight(alsoMacska, 100);
+            // Ezt AI-al irattam, nem jottem ra magamtol, dokumentaciot sem talaltam
+            var bitmapAlso = new BitmapImage();
+            bitmapAlso.BeginInit();
+            bitmapAlso.UriSource = new Uri("pack://application:,,,/Images/cica.png");
+            bitmapAlso.CacheOption = BitmapCacheOption.OnLoad;
+            bitmapAlso.EndInit();
+            alsoMacska.Fill = new ImageBrush
+            {
+                ImageSource = bitmapAlso
+            };
+
+            gameCanvas.Children.Add(felsoMacska);
+            gameCanvas.Children.Add(alsoMacska);
+            macskak.Add(alsoMacska);
+            macskak.Add(felsoMacska);
         }
 
         private void gameCanvas_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -111,7 +172,7 @@ namespace flappyBird
 
             double egerLeft = canvasSzelesseg /10;
             double egerWidth = canvasSzelesseg / 10;
-            double egerHeight = egerWidth;
+            egerHeight = egerWidth;
             double egerTop = Canvas.GetTop(eger);
             if (double.IsNaN(egerTop))
             {
@@ -123,7 +184,6 @@ namespace flappyBird
             Canvas.SetTop(eger, egerTop + (egerTop - egerYpozicioja));
 
             gravitacio = 0.5 * canvasMagassag / 200;
-            felhuzoEro = 10 * canvasMagassag / 200;
 
             egerText.Text = ((canvasMagassag - eger.Height) / 2).ToString();
 
@@ -132,6 +192,8 @@ namespace flappyBird
                 kod.Width = canvasSzelesseg * 1.5;
                 kod.Height = canvasMagassag;
             }
+
+            macskaSzelesseg = canvasSzelesseg / 10;
         }
 
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
