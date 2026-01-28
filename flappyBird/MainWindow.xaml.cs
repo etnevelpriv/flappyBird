@@ -104,6 +104,19 @@ namespace flappyBird
                 sebesseg = 0;
             }
 
+            var egerBounds = GetEgerBounds();
+            foreach (var macska in macskak)
+            {
+                var macskaBounds = GetMacskaBounds(macska);
+                macskaText.Text = macskaBounds.ToString();
+                egerText.Text = egerBounds.ToString();
+                if (egerBounds.IntersectsWith(macskaBounds))
+                {
+                    StopGame();
+                    break;
+                }
+            }
+
             Canvas.SetTop(eger, egerYpozicioja);
             foreach (Rectangle macska in macskak)
             {
@@ -185,8 +198,6 @@ namespace flappyBird
 
             gravitacio = 0.5 * canvasMagassag / 200;
 
-            egerText.Text = ((canvasMagassag - eger.Height) / 2).ToString();
-
             if (kod.Visibility == Visibility.Visible)
             {
                 kod.Width = canvasSzelesseg * 1.5;
@@ -203,6 +214,44 @@ namespace flappyBird
                 sebesseg = -10;
                 e.Handled = true;
             }
+        }
+        private void StopGame()
+        {
+            jatekTimer.Stop();
+            cicaTimer.Stop();
+        }
+        private Rect GetEgerBounds()
+        {
+            double left = Canvas.GetLeft(eger);
+            double top = Canvas.GetTop(eger);
+            if (double.IsNaN(left)) left = 0;
+            if (double.IsNaN(top)) top = 0;
+            return new Rect(left, top, eger.Width, eger.Height);
+        }
+
+        private Rect GetMacskaBounds(Rectangle macska)
+        {
+            double left = Canvas.GetLeft(macska);
+            double top = Canvas.GetTop(macska);
+
+            // If positioned by Right/Bottom, convert to Left/Top
+            double right = Canvas.GetRight(macska);
+            double bottom = Canvas.GetBottom(macska);
+
+            if (!double.IsNaN(right))
+            {
+                left = canvasSzelesseg - right - macska.Width;
+            }
+
+            if (!double.IsNaN(bottom))
+            {
+                top = canvasMagassag - bottom - macska.Height;
+            }
+
+            if (double.IsNaN(left)) left = 0;
+            if (double.IsNaN(top)) top = 0;
+
+            return new Rect(left, top, macska.Width, macska.Height);
         }
     }
 }

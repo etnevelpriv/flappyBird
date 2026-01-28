@@ -41,6 +41,7 @@
                 </Rectangle.Fill>
             </Rectangle>
             <TextBlock x:Name="egerText" TextWrapping="Wrap" Text="1"/>
+            <TextBlock x:Name="macskaText" Margin="0 200 0 0" TextWrapping="Wrap" Text="1"/>
 
         </Canvas>
 
