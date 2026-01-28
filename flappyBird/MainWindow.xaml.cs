@@ -114,9 +114,9 @@ namespace flappyBird
 
         private void CicaTimer_Tick(object? sender, EventArgs e)
         {
-            double lyukMagassag = egerHeight * 3;
+            double lyukMagassag = egerHeight*2;
             double felsoMacskaMagassag = random.Next((int)(canvasMagassag - lyukMagassag));
-            double alsoMacskaMagassag = felsoMacskaMagassag + lyukMagassag;
+            double alsoMacskaMagassag = canvasMagassag - felsoMacskaMagassag - lyukMagassag;
 
             Rectangle felsoMacska = new Rectangle();
             felsoMacska.Height = felsoMacskaMagassag;
@@ -141,7 +141,7 @@ namespace flappyBird
             alsoMacska.Width = macskaSzelesseg;
             alsoMacska.VerticalAlignment = VerticalAlignment.Center;
             alsoMacska.HorizontalAlignment = HorizontalAlignment.Left;
-            Canvas.SetTop(alsoMacska, 0);
+            Canvas.SetBottom(alsoMacska, 0);
             Canvas.SetRight(alsoMacska, 100);
             // Ezt AI-al irattam, nem jottem ra magamtol, dokumentaciot sem talaltam
             var bitmapAlso = new BitmapImage();
