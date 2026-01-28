@@ -1,5 +1,4 @@
 Lepesek:
-Ha az eger hozzaer az oszlophoz, akkor vege a dalnak.
 Esos palyan nagyobb gravitacio
 szamolni, hogy hany pontot ert el a jatekos (oszloponkent 1 pont)
 Vege functionben elmenteni egy txt-ben az eredmenyet, a timedate-el es a palyaval.

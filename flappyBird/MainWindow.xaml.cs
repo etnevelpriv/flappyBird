@@ -23,6 +23,7 @@ namespace flappyBird
         double canvasMagassag;
         double canvasSzelesseg;
         double gravitacio;
+        double szorzo = 1;
         double egerHeight;
         double macskaSzelesseg;
 
@@ -55,19 +56,21 @@ namespace flappyBird
 
         private async void palyaButtonNapos_Click(object sender, RoutedEventArgs e)
         {
+            szorzo = 1;
             await renderGame("napos", "pack://application:,,,/Images/napos.png");
             gameCanvasSizeModifier();
         }
 
         private async void palyaButtonEsos_Click(object sender, RoutedEventArgs e)
         {
+            szorzo = 1.5;
             await renderGame("esos", "pack://application:,,,/Images/esos.png");
-            gravitacio = 1.5;
             gameCanvasSizeModifier();
         }
 
         private async void palyaButtonKodos_Click(object sender, RoutedEventArgs e)
         {
+            szorzo = 1;
             kod.Visibility = Visibility.Visible;
             await renderGame("kodos", "pack://application:,,,/Images/kodos.png");
             gameCanvasSizeModifier();
@@ -128,7 +131,7 @@ namespace flappyBird
         private void CicaTimer_Tick(object? sender, EventArgs e)
         {
             double lyukMagassag = egerHeight*2;
-            double felsoMacskaMagassag = random.Next((int)(canvasMagassag - lyukMagassag));
+            double felsoMacskaMagassag = random.Next((int)((canvasMagassag) - lyukMagassag));
             double alsoMacskaMagassag = canvasMagassag - felsoMacskaMagassag - lyukMagassag;
 
             Rectangle felsoMacska = new Rectangle();
@@ -196,7 +199,8 @@ namespace flappyBird
             Canvas.SetLeft(eger, egerLeft);
             Canvas.SetTop(eger, egerTop + (egerTop - egerYpozicioja));
 
-            gravitacio = 0.5 * canvasMagassag / 200;
+            double baseGravitacio = 0.5 * canvasMagassag / 200;
+            gravitacio = baseGravitacio * szorzo;
 
             if (kod.Visibility == Visibility.Visible)
             {
@@ -234,7 +238,6 @@ namespace flappyBird
             double left = Canvas.GetLeft(macska);
             double top = Canvas.GetTop(macska);
 
-            // If positioned by Right/Bottom, convert to Left/Top
             double right = Canvas.GetRight(macska);
             double bottom = Canvas.GetBottom(macska);
 
