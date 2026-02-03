@@ -113,7 +113,7 @@ namespace flappyBird
                 var macskaBounds = GetMacskaBounds(macska);
                 macskaText.Text = macskaBounds.ToString();
                 egerText.Text = egerBounds.ToString();
-                if (egerBounds.IntersectsWith(macskaBounds))
+                if (egerBounds.IntersectsWith(macskaBounds) )
                 {
                     StopGame();
                     break;

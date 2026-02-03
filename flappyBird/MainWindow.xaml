@@ -21,7 +21,7 @@
                 </Rectangle.Fill>
             </Rectangle>
 
-            <Rectangle x:Name="kod" Height="450" Width="800" Visibility="Collapsed" Canvas.Right="-5">
+            <Rectangle x:Name="kod" Height="450" Width="800" Visibility="Collapsed" Panel.ZIndex="1000" Canvas.Right="-5">
                 <Rectangle.Fill>
                     <ImageBrush ImageSource="/Images/koKod.png"/>
                 </Rectangle.Fill>
