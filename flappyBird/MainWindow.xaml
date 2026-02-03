@@ -45,7 +45,7 @@
 
         </Canvas>
 
-        <Grid Background="#000000" x:Name="menuGrid" Visibility="Collapsed">
+        <Grid Background="#000000" x:Name="menuGrid" Visibility="Visible">
             <TextBlock TextWrapping="Wrap" FontSize="40" VerticalAlignment="Top" Margin="0 80 0 0" HorizontalAlignment="Center" Foreground="#ff00ff" FontFamily="Cascadia Mono" FontWeight="Bold" Text="Floppy Mouse"/>
             <Button x:Name="newGameButton" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 180 0 0" Width="200" Height="60" BorderThickness="2" BorderBrush="#00ffff" Foreground="#ff00ff" FontSize="20" FontFamily="Cascadia Mono" FontWeight="Bold" Background="Black" Content="Új játék" Click="newGameButton_Click"/>
             <Button x:Name="achievementShowButton" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 300 0 0" Width="200" Height="60" BorderThickness="2" BorderBrush="#00ffff" Foreground="#ff00ff" FontSize="20" FontFamily="Cascadia Mono" FontWeight="Bold" Background="Black" Content="Eredmények" Click="achievementShowButton_Click"/>
@@ -58,7 +58,7 @@
             <Button x:Name="palyaButtonKodos" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0 300 0 0" Width="200" Height="60" BorderThickness="2" BorderBrush="#00ffff" Foreground="#ff00ff" FontSize="20" FontFamily="Cascadia Mono" FontWeight="Bold" Background="Black" Content="Kodos" Click="palyaButtonKodos_Click"/>
         </Grid>
 
-        <Grid Background="#000000" x:Name="eredmenyekGrid" Visibility="Visible">
+        <Grid Background="#000000" x:Name="eredmenyekGrid" Visibility="Collapsed">
             <TextBlock TextWrapping="Wrap" FontSize="40" VerticalAlignment="Top" Margin="0 80 0 0" HorizontalAlignment="Center" Foreground="#ff00ff" FontFamily="Cascadia Mono" FontWeight="Bold" Text="Eredmenyek!"/>
             <TextBlock x:Name="eredmenyekTextBlock" TextWrapping="Wrap" FontSize="20" VerticalAlignment="Top" Margin="0 150 0 0" HorizontalAlignment="Center" Foreground="#00ffff" FontFamily="Cascadia Mono" FontWeight="Bold" Text=""/>
             <Button x:Name="exitEredmenyekGrid" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0 0 10 10" Width="200" Height="60" BorderThickness="2" BorderBrush="#00ffff" Foreground="#ff00ff" FontSize="20" FontFamily="Cascadia Mono" FontWeight="Bold" Background="Black" Content="Kilepes" Click="exitEredmenyekGrid_Click"/>
