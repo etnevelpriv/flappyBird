@@ -130,7 +130,7 @@ namespace flappyBird
 
         private void CicaTimer_Tick(object? sender, EventArgs e)
         {
-            double lyukMagassag = egerHeight*2;
+            double lyukMagassag = egerHeight*2.5;
             double felsoMacskaMagassag = random.Next((int)((canvasMagassag) - lyukMagassag));
             double alsoMacskaMagassag = canvasMagassag - felsoMacskaMagassag - lyukMagassag;
 
@@ -144,7 +144,7 @@ namespace flappyBird
             // Ezt AI-al irattam, nem jottem ra magamtol, dokumentaciot sem talaltam
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
-            bitmap.UriSource = new Uri("pack://application:,,,/Images/forditottCica.png");
+            bitmap.UriSource = new Uri("pack://application:,,,/Images/forditottMacska.png");
             bitmap.CacheOption = BitmapCacheOption.OnLoad;
             bitmap.EndInit();
             felsoMacska.Fill = new ImageBrush
@@ -162,7 +162,7 @@ namespace flappyBird
             // Ezt AI-al irattam, nem jottem ra magamtol, dokumentaciot sem talaltam
             var bitmapAlso = new BitmapImage();
             bitmapAlso.BeginInit();
-            bitmapAlso.UriSource = new Uri("pack://application:,,,/Images/cica.png");
+            bitmapAlso.UriSource = new Uri("pack://application:,,,/Images/macska.png");
             bitmapAlso.CacheOption = BitmapCacheOption.OnLoad;
             bitmapAlso.EndInit();
             alsoMacska.Fill = new ImageBrush

@@ -13,8 +13,10 @@
     <None Remove="Images\eger.png" />
     <None Remove="Images\esos.png" />
     <None Remove="Images\forditottCica.png" />
+    <None Remove="Images\forditottMacska.png" />
     <None Remove="Images\kodos.png" />
     <None Remove="Images\koKod.png" />
+    <None Remove="Images\macska.png" />
     <None Remove="Images\napos.png" />
   </ItemGroup>
 
@@ -26,8 +28,10 @@
     <Resource Include="Images\cica.png" />
     <Resource Include="Images\eger.png" />
     <Resource Include="Images\forditottCica.png" />
+    <Resource Include="Images\forditottMacska.png" />
     <Resource Include="Images\kodos.png" />
     <Resource Include="Images\koKod.png" />
+    <Resource Include="Images\macska.png" />
     <Resource Include="Images\napos.png" />
   </ItemGroup>
 
