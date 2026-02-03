@@ -1,4 +1,6 @@
-﻿using System.Numerics;
+﻿using System;
+using System.IO;
+using System.Numerics;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,6 +28,7 @@ namespace flappyBird
         double szorzo = 1;
         double egerHeight;
         double macskaSzelesseg;
+        int pontszam;
 
         List<Rectangle> macskak = new List<Rectangle>();
 
@@ -41,7 +44,7 @@ namespace flappyBird
             jatekTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };
             jatekTimer.Tick += JatekTimer_Tick;
 
-            cicaTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+            cicaTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1.5) };
             cicaTimer.Tick += CicaTimer_Tick;
         }
         private void newGameButton_Click(object sender, RoutedEventArgs e)
@@ -51,7 +54,13 @@ namespace flappyBird
         }
         private void achievementShowButton_Click(object sender, RoutedEventArgs e)
         {
+            menuGrid.Visibility = Visibility.Collapsed;
+            eredmenyekGrid.Visibility = Visibility.Visible;
 
+            foreach (var eredmeny in File.ReadLines("eredmenyek.txt"))
+            {
+                eredmenyekTextBlock.Text += $"{eredmeny}\n";
+            }
         }
 
         private async void palyaButtonNapos_Click(object sender, RoutedEventArgs e)
@@ -80,6 +89,7 @@ namespace flappyBird
         {
             backgroundImage.ImageSource = new BitmapImage(new Uri(imageSource));
             aktivNehezseg = nehezseg;
+            pontszam = 0;
 
             palyaValasztoGrid.Visibility = Visibility.Collapsed;
             gameCanvas.Visibility = Visibility.Visible;
@@ -111,9 +121,14 @@ namespace flappyBird
             foreach (var macska in macskak)
             {
                 var macskaBounds = GetMacskaBounds(macska);
+                if (macska.Tag is bool scored == false && macskaBounds.Right < egerBounds.Left)
+                {
+                    pontszam++;
+                    macska.Tag = true;
+                }
                 macskaText.Text = macskaBounds.ToString();
                 egerText.Text = egerBounds.ToString();
-                if (egerBounds.IntersectsWith(macskaBounds) )
+                if (egerBounds.IntersectsWith(macskaBounds))
                 {
                     StopGame();
                     break;
@@ -124,7 +139,7 @@ namespace flappyBird
             foreach (Rectangle macska in macskak)
             {
                 double macskaPozicio = Canvas.GetRight(macska);
-                Canvas.SetRight(macska, (macskaPozicio + 10));
+                Canvas.SetRight(macska, (macskaPozicio + canvasSzelesseg/150));
             }
         }
 
@@ -141,6 +156,7 @@ namespace flappyBird
             felsoMacska.HorizontalAlignment = HorizontalAlignment.Left;
             Canvas.SetTop(felsoMacska, 0);
             Canvas.SetRight(felsoMacska, 100);
+            felsoMacska.Tag = false;
             // Ezt AI-al irattam, nem jottem ra magamtol, dokumentaciot sem talaltam
             var bitmap = new BitmapImage();
             bitmap.BeginInit();
@@ -223,6 +239,7 @@ namespace flappyBird
         {
             jatekTimer.Stop();
             cicaTimer.Stop();
+            File.AppendAllText("eredmenyek.txt", $"{DateTime.Now}, {aktivNehezseg}, {pontszam}\n");
         }
         private Rect GetEgerBounds()
         {
@@ -255,6 +272,12 @@ namespace flappyBird
             if (double.IsNaN(top)) top = 0;
 
             return new Rect(left, top, macska.Width, macska.Height);
+        }
+
+        private void exitEredmenyekGrid_Click(object sender, RoutedEventArgs e)
+        {
+            eredmenyekGrid.Visibility = Visibility.Collapsed;
+            menuGrid.Visibility = Visibility.Visible;
         }
     }
 }
