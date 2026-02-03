@@ -57,7 +57,8 @@ namespace flappyBird
             menuGrid.Visibility = Visibility.Collapsed;
             eredmenyekGrid.Visibility = Visibility.Visible;
 
-            foreach (var eredmeny in File.ReadLines("eredmenyek.txt"))
+
+            foreach (var eredmeny in File.ReadLines("eredmenyek.txt").Reverse().Take(5).Reverse())
             {
                 eredmenyekTextBlock.Text += $"{eredmeny}\n";
             }
